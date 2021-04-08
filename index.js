@@ -1,3 +1,8 @@
+function randomInteger(min, max) {
+    // получить случайное число от (min-0.5) до (max+0.5)
+    let rand = min - 0.5 + Math.random() * (max - min + 1);
+    return Math.round(rand);
+}
 const SPIN  = new function () {
 
     let SPIN = this, cnv,ctx,width,height,nodes = [],node_count = 0,for_destroy = {},down_keys ={};
@@ -41,7 +46,8 @@ const SPIN  = new function () {
          }
 
          intersect(node){
-             return (this.x+this.h>=node.x&&this.x+this.w+this.h<=node.x+node.w)
+             //console.log(node);
+             return ((node.x>=this.x&&node.x+node.w<=this.x+this.w)&&(node.y+node.h>=this.y));
          }
     }
 
@@ -54,7 +60,7 @@ const SPIN  = new function () {
     SPIN.start = (w,h) => {
         cnv = $('cnv');
         ctx = cnv.getContext('2d');
-        console.log(ctx);
+        //console.log(ctx);
         width = w;
         height = h;
         cnv.width = width;
@@ -102,11 +108,15 @@ window.addEventListener('load',function () {
        node.y+=1;
    };
 
-    for (let i=0;i<10;i++){
-        enemies.push(SPIN.create_node(10+(20+40)*i,-20,20,20,'#ffba7d',enemy_ai));
-    }
+    setInterval(function (){
+        console.log(randomInteger(10,610));
+        enemies.push(SPIN.create_node(10+(20+40)*randomInteger(1,10),-20,20,20,'#ffba7d',enemy_ai));
+    },1000);
+
+
 
     SPIN.create_node(640/2-20,480-10-40,40,40,'#000000',(node)=>{
+        console.log(node.y);
         for (let i = enemies.length-1;i>=0;i--){
             if (node.intersect(enemies[i])){
                 enemies[i].destroy();
@@ -114,10 +124,10 @@ window.addEventListener('load',function () {
             }
                 }
         if (SPIN.key('KeyA')){
-            node.x -=1;
+            node.x -=8;
         }
         if (SPIN.key('KeyD')){
-            node.x +=1;
+            node.x +=8;
         }
     });
 
