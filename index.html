@@ -9,9 +9,17 @@
 </head>
 
 <body>
-    <div class="root">
+<div id="main" style="display: block;padding-top:100px;text-align: center">
+    <span style="margin-right: 5px" >Введите свое имя</span>
+    <form action="" method="post"><input type="text" id="text" required><input id="but" type="submit" value="Играть"></form>
+</div>
+<div id="#game" style="display: none">
+    <div class="root" >
         <canvas id="cnv"></canvas>
     </div>
+    <div class="">Игрок <span id="user"></span>, ваш счет <span id="score"></span></div>
+</div>
+
 </body>
 
 
